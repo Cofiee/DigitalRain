@@ -1,0 +1,18 @@
+name: Github Actions Build
+on: [push]
+jobs:
+  Windows: 
+    name: run on windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ilammy/msvc-dev-cmd@v1.4.1
+    - name: compile
+      run: | 
+        cl /EHsc main.cpp /stdd:c++latest /out:DigitalRain.exe
+    - name: upload executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows
+        path: | 
+          DigitalRain.exe
